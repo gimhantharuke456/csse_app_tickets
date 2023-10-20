@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:csse_app/models/ticket_model.dart';
 import 'package:csse_app/services/ticket_service.dart';
 import 'package:csse_app/utils/constants.dart';
@@ -7,6 +9,7 @@ import 'package:csse_app/widgets/input_field.dart';
 import 'package:csse_app/widgets/main_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 
 class InsideBusViewOne extends StatefulWidget {
   const InsideBusViewOne({super.key});
@@ -34,6 +37,16 @@ class _InsideBusViewOneState extends State<InsideBusViewOne> {
             width: MediaQuery.of(context).size.width * 0.8,
             height: MediaQuery.of(context).size.width * 0.8,
             color: Colors.red,
+            child: MobileScanner(
+              // fit: BoxFit.contain,
+              onDetect: (capture) {
+                final List<Barcode> barcodes = capture.barcodes;
+                final Uint8List? image = capture.image;
+                for (final barcode in barcodes) {
+                  debugPrint('Barcode found! ${barcode.rawValue}');
+                }
+              },
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(defaultPadding),

@@ -38,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 await AuthService().signOutUser();
                 context.navigator(context, AuthChecker(), shouldBack: false);
               },
-              child: Text(
+              child: const Text(
                 'Signout',
                 style: TextStyle(
                   color: Colors.white,
